@@ -18,4 +18,4 @@ youtube_transcript_api
 unstructured
 pytube==15.0.0
 flask
-vercel
+gunicorn
