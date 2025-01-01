@@ -46,14 +46,20 @@ def home():
 @app.route('/ask', methods=['POST'])
 def ask():
     user_input = request.form['user_input']
-    if user_input.strip() == "":
+    if not user_input.strip():  # Ensure input is not empty
         return jsonify({"error": "Input cannot be empty."}), 400
 
-    response = retrieval_chain.invoke({"input": user_input})
-    return jsonify({
-        "answer": response['answer'],
-        "context": [doc.page_content for doc in response['context']]
-    })
+    try:
+        # Get the response from the chain
+        response = retrieval_chain.invoke({"input": user_input})
+        return jsonify({
+            "answer": response['answer'],
+            "context": [doc.page_content for doc in response['context']]
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Dynamically get the port for deployment on platforms like Vercel or Render
+    port = int(os.environ.get('PORT', 5000))  # Default to 5000 if PORT not set
+    app.run(host='0.0.0.0', port=port, debug=True)  # Listen on all interfaces for cloud deployments

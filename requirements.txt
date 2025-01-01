@@ -1,7 +1,5 @@
 langchain 
 langchain_community
-ipykernel
-pypdf
 langchain-text-splitters
 chromadb
 sentence_transformers
@@ -11,11 +9,5 @@ chromadb
 langchain_chroma
 langserve
 langchain-groq
-arxiv
-wikipedia
-validators==0.34.0
-youtube_transcript_api
-unstructured
-pytube==15.0.0
 flask
-gunicorn
+vercel
